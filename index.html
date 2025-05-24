@@ -6,6 +6,59 @@
     <title>Yazd, la Ciudad de los Badgirs y el Sol ✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
+        /* CSS برای لودر */
+        .loader-container {
+            position: fixed; /* لودر روی همه چیز قرار می‌گیرد */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9); /* پس زمینه سفید با شفافیت کم */
+            display: flex;
+            justify-content: center; /* افقی در مرکز */
+            align-items: center;     /* عمودی در مرکز */
+            z-index: 9999;           /* لودر همیشه در بالا باشد */
+            transition: opacity 0.7s ease-out, visibility 0.7s ease-out; /* انیمیشن محو شدن و پنهان شدن */
+        }
+
+        .loader-container.hidden {
+            opacity: 0;
+            visibility: hidden; /* وقتی محو شد، از DOM حذف شود تا کلیک نشود */
+        }
+
+        .loader {
+            width: calc(100px - 14px);
+            height: 50px;
+            border-radius: 50px;
+            background:
+              radial-gradient(farthest-side,#0000 calc(100% - 15px),#ccc calc(100% - 14px) 99%,#0000) left,
+              radial-gradient(farthest-side,#0000 calc(100% - 15px),#ccc calc(100% - 14px) 99%,#0000) right;
+            background-size: calc(50% + 7px) 100%;
+            background-repeat: no-repeat;
+            position: relative;
+            animation: l10-0 1s infinite linear;
+        }
+        .loader:before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #f03355;
+            transform-origin: -14px 50%;
+            animation: l10-1 0.5s infinite linear;
+        }
+        @keyframes l10-0 {
+            0%,49.99% { transform:scaleX(1)}
+            50%,100% { transform:scaleX(-1)}
+        }
+        @keyframes l10-1 {
+            100% { transform:rotate(1turn)}
+        }
+
+        /* بقیه کدهای CSS شما از اینجا به بعد */
         :root {
             --primary-color: #d35400; /* Naranja-marrón ladrillo, evocando el adobe y la arquitectura de Yazd */
             --secondary-color: #1abc9c; /* Turquesa, recordando los azulejos y el cielo del desierto */
@@ -68,7 +121,7 @@
             text-align: center;
             color: #fff;
             overflow: hidden;
-            /* تصویر پس زمینه اصلی صفحه: یک عکس گسترده و زیبا از منظره عمومی شهر یزد، نمای شهر قدیمی، بادگیرها از دور، یا یک کوچه خشتی زیبا با نورپردازی خاص. بهتر است یک عکس افقی (landscape) با کیفیت بالا باشد. */
+            /* imagen de fondo principal */
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('img/01.png') no-repeat center center/cover;
             animation: fadeInScaleUp var(--animation-duration) ease-out;
         }
@@ -81,7 +134,7 @@
             width: 100%;
             height: 100%;
             background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+                                 radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
             animation: moveGradient 15s infinite alternate ease-in-out;
             z-index: 0;
         }
@@ -210,7 +263,7 @@
             transition: transform 0.6s ease;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-       
+
         .grid-item:hover img {
             transform: scale(1.1);
         }
@@ -225,7 +278,7 @@
             font-size: 1.2em;
             color: #555;
         }
-        
+
         /* ----- Pie de página ----- */
         footer {
             background-color: var(--dark-bg);
@@ -337,6 +390,10 @@
 </head>
 <body>
 
+    <div class="loader-container">
+        <div class="loader"></div>
+    </div>
+
     <header class="hero">
         <div class="hero-content">
             <h1>¡Bienvenidos a Yazd! 🧡</h1>
@@ -404,6 +461,25 @@
     <button id="scrollTopBtn" title="¡Subir!">⬆️</button>
 
     <script>
+        // جاوا اسکریپت برای لودر صفحه
+        window.addEventListener('load', function() {
+            const loaderContainer = document.querySelector('.loader-container');
+            const minDisplayTime = 3000; // 3000 میلی‌ثانیه = 3 ثانیه
+            const startTime = Date.now(); // زمان فعلی
+
+            function hideLoader() {
+                loaderContainer.classList.add('hidden');
+            }
+
+            const elapsedTime = Date.now() - startTime;
+            if (elapsedTime >= minDisplayTime) {
+                hideLoader();
+            } else {
+                setTimeout(hideLoader, minDisplayTime - elapsedTime);
+            }
+        });
+
+        // بقیه کدهای جاوا اسکریپت شما از اینجا به بعد
         // Para convertir colores hexadecimales a RGB para usar en gradientes
         function hexToRgb(hex) {
             const r = parseInt(hex.substring(1, 3), 16);
@@ -428,8 +504,7 @@
 
         // ----- Entrada de cajas simultánea con el desplazamiento (Efecto Parallax) -----
 
-        // حالا فقط آیتم های grid-item انتخاب می شوند.
-        const scrollAnimatedElements = document.querySelectorAll('.grid-item'); 
+        const scrollAnimatedElements = document.querySelectorAll('.grid-item');
 
         function animateOnScroll() {
             scrollAnimatedElements.forEach(item => {
@@ -438,40 +513,35 @@
                 const itemHeight = itemRect.height;
                 const windowHeight = window.innerHeight;
 
-                // نقطه شروع: وقتی پایین آیتم به 80% پایین صفحه رسید (زودتر شروع بشه)
-                const startPoint = windowHeight * 0.8; 
-                // نقطه پایان: وقتی بالای آیتم به 50% بالای صفحه رسید (اواسط صفحه کامل بشه)
-                const endPoint = windowHeight * 0.5; 
+                const startPoint = windowHeight * 0.8;
+                const endPoint = windowHeight * 0.5;
 
-                if (itemTop < startPoint && itemTop > -itemHeight) { // آیتم در محدوده قابل مشاهده
+                if (itemTop < startPoint && itemTop > -itemHeight) {
                     let progress = 0;
-                    if (startPoint !== endPoint) { 
+                    if (startPoint !== endPoint) {
                         progress = 1 - ((itemTop - endPoint) / (startPoint - endPoint));
                     }
-                    progress = Math.max(0, Math.min(1, progress)); // مطمئن میشیم بین 0 و 1 هست
+                    progress = Math.max(0, Math.min(1, progress));
 
-                    // مقدار transform رو از 80px به 0px و opacity رو از 0 به 1 متناسب با progress تنظیم می‌کنیم
-                    const translateYValue = 80 * (1 - progress); 
-                    const opacityValue = progress; 
+                    const translateYValue = 80 * (1 - progress);
+                    const opacityValue = progress;
 
                     item.style.transform = `translateY(${translateYValue}px)`;
                     item.style.opacity = opacityValue;
 
-                } else if (itemTop >= startPoint) { // آیتم هنوز پایین صفحه است
+                } else if (itemTop >= startPoint) {
                     item.style.transform = 'translateY(80px)';
                     item.style.opacity = 0;
                     item.style.transition = 'transform 0.1s linear, opacity 0.1s linear';
-                } else { // آیتم از بالای صفحه خارج شده (یا کاملاً در بالای صفحه دیده شده)
-                    item.style.opacity = 1; 
+                } else {
+                    item.style.opacity = 1;
                     item.style.transform = 'translateY(0)';
                     item.style.transition = 'transform 0.1s linear, opacity 0.1s linear';
                 }
             });
         }
 
-        // افزودن ایونت لیسنر به اسکرول
         window.addEventListener('scroll', animateOnScroll);
-        // برای زمانی که صفحه برای اولین بار لود میشه و ممکنه آیتم ها از قبل تو دید باشن
         animateOnScroll();
 
         // دکمه اسکرول به بالا
