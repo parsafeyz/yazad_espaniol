@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yazd, la Ciudad de los Badgirs y el Sol ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #d35400; /* Naranja-marrón ladrillo, evocando el adobe y la arquitectura de Yazd */
+            --secondary-color: #1abc9c; /* Turquesa, recordando los azulejos y el cielo del desierto */
+            --text-color: #34495e; /* Azul petróleo oscuro para claridad */
+            --light-bg: #fdf6e3; /* Crema claro, arena y tierra de Yazd */
+            --dark-bg: #8e44ad; /* Morado oscuro o marrón profundo para contraste */
+            --animation-duration: 1.2s;
+            /* RGB para gradientes */
+            --primary-color-rgb: 211, 84, 0;
+            --secondary-color-rgb: 26, 188, 156;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* ----- Animaciones Generales ----- */
+        @keyframes fadeInScaleUp {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes floatUpDown {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* ----- Encabezado y Sección Hero ----- */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            overflow: hidden;
+            /* تصویر پس زمینه اصلی صفحه: یک عکس گسترده و زیبا از منظره عمومی شهر یزد، نمای شهر قدیمی، بادگیرها از دور، یا یک کوچه خشتی زیبا با نورپردازی خاص. بهتر است یک عکس افقی (landscape) با کیفیت بالا باشد. */
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('img/01.png') no-repeat center center/cover;
+            animation: fadeInScaleUp var(--animation-duration) ease-out;
+        }
+
+        .hero::before { /* Efecto de partículas o luces en movimiento */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            animation: moveGradient 15s infinite alternate ease-in-out;
+            z-index: 0;
+        }
+
+        @keyframes moveGradient {
+            0% { background-position: 0% 0%, 100% 100%; }
+            100% { background-position: 100% 100%, 0% 0%; }
+        }
+
+        .hero-content {
+            z-index: 1;
+            padding: 20px;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.8);
+        }
+
+        .hero h1 {
+            font-size: 5.5em;
+            margin-bottom: 15px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            animation: slideInRight var(--animation-duration) ease-out forwards 0.3s;
+            opacity: 0; /* Para que la animación comience desde cero */
+        }
+
+        .hero p {
+            font-size: 2em;
+            margin-top: 0;
+            font-weight: 300;
+            animation: slideInLeft var(--animation-duration) ease-out forwards 0.6s;
+            opacity: 0; /* Para que la animación comience desde cero */
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: fadeInScaleUp 1s ease-out forwards 1s;
+            opacity: 0;
+        }
+
+        .cta-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            animation: pulse 1s infinite;
+        }
+
+        /* ----- Secciones de Contenido ----- */
+        section {
+            padding: 100px 5%;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 4em;
+            margin-bottom: 60px;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            animation: fadeInScaleUp 1s ease-out; /* Animación para los títulos */
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 6px;
+            background-color: var(--secondary-color);
+            border-radius: 3px;
+            animation: expandLine 1.5s ease-out forwards;
+        }
+
+        @keyframes expandLine {
+            from { width: 0; opacity: 0; }
+            to { width: 120px; opacity: 1; }
+        }
+
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 50px;
+            direction: rtl; /* Se mantiene rtl por la orientación de Vazirmatn */
+        }
+
+        .grid-item { /* Estilo para los ítems que ahora tendrán la animación de scroll */
+            background-color: #fff;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            opacity: 0; /* Por defecto invisible para la animación */
+            transform: translateY(80px); /* Por defecto más abajo para la animación */
+            transition: transform 0.1s linear, opacity 0.1s linear; /* Transición para el scroll simultáneo */
+            will-change: transform, opacity; /* Sugerencia al navegador para optimización */
+        }
+
+        .grid-item:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Transición diferente para hover */
+        }
+
+
+        .grid-item img {
+            max-width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            transition: transform 0.6s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+       
+        .grid-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .grid-item h3 {
+            font-size: 2.2em;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .grid-item p {
+            font-size: 1.2em;
+            color: #555;
+        }
+        
+        /* ----- Pie de página ----- */
+        footer {
+            background-color: var(--dark-bg);
+            color: #fff;
+            text-align: center;
+            padding: 60px 20px;
+            font-size: 1.2em;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.2);
+            animation: fadeIn var(--animation-duration) ease-out forwards;
+        }
+
+        footer p {
+            margin: 10px 0;
+            animation: floatUpDown 3s infinite ease-in-out; /* Animación flotante */
+        }
+
+        /* Botón de desplazamiento hacia arriba */
+        #scrollTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            z-index: 99;
+            font-size: 28px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        #scrollTopBtn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+            animation: none;
+        }
+
+        /* ----- Responsive ----- */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 4em;
+            }
+            .hero p {
+                font-size: 1.6em;
+            }
+            section h2 {
+                font-size: 3.5em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3.2em;
+            }
+            .hero p {
+                font-size: 1.4em;
+            }
+            section {
+                padding: 70px 3%;
+            }
+            section h2 {
+                font-size: 2.8em;
+                margin-bottom: 40px;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .grid-item {
+                padding: 25px;
+            }
+            .grid-item h3 {
+                font-size: 1.8em;
+            }
+            .grid-item p {
+                font-size: 1em;
+            }
+            #scrollTopBtn {
+                width: 50px;
+                height: 50px;
+                font-size: 22px;
+                bottom: 25px;
+                right: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            .hero p {
+                font-size: 1.1em;
+            }
+            .cta-button {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+            section h2 {
+                font-size: 2.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>¡Bienvenidos a Yazd! 🧡</h1>
+            <p>¡La ciudad de los badgirs, la ciudad de los qanats, la ciudad de los dulces y el arte!</p>
+            <a href="#about" class="cta-button">Saber más 👇</a>
+        </div>
+    </header>
+
+    <main>
+        ---
+        <section id="about">
+            <h2>Sobre Yazd 🏜️</h2>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <img src="img/02.jpg" alt="Arquitectura de Yazd">
+                    <h3>Arquitectura desértica inigualable</h3>
+                    <p>Yazd, una obra maestra de la arquitectura desértica mundial con sus casas de adobe, badgirs imponentes y callejones serpenteantes que transmiten una sensación de paz.</p>
+                </div>
+                <div class="grid-item">
+                    <img src="img/03.jpg" alt="Desierto de Yazd">
+                    <h3>Calma y silencio del desierto</h3>
+                    <p>Lejos del ajetreo de la ciudad, los desiertos que rodean Yazd, con su incomparable calma y silencio, le ofrecen una experiencia inolvidable de noches estrelladas.</p>
+                </div>
+                <div class="grid-item">
+                    <img src="img/04.jpg" alt="Dulces de Yazd">
+                    <h3>Sabores celestiales de Yazd</h3>
+                    <p>Desde Baghlava y Qottab hasta Haji Badam y Pashmak. Yazd, con sus deliciosos dulces, cautiva a todos los paladares. ¡No olvides probarlos!</p>
+                </div>
+            </div>
+        </section>
+
+        ---
+        <section id="attractions">
+            <h2>Atracciones Turísticas 🏛️</h2>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <img src="img/05.webp" alt="Complejo Amir Chakhmaq">
+                    <h3>Complejo Amir Chakhmaq</h3>
+                    <p>Un símbolo inconfundible de la arquitectura religiosa y antigua de Yazd, con una estructura majestuosa que es aún más impresionante por la noche.</p>
+                </div>
+                <div class="grid-item">
+                    <img src="img/06.jpg" alt="Jardín Dowlat Abad">
+                    <h3>Jardín Dowlat Abad</h3>
+                    <p>Con el badgir más alto del mundo y sus antiguos cipreses, es un ejemplo sin igual de los jardines persas.</p>
+                </div>
+                <div class="grid-item">
+                    <img src="img/07.jpg" alt="Mezquita Jame de Yazd">
+                    <h3>Mezquita Jame de Yazd</h3>
+                    <p>Altos minaretes y deslumbrantes azulejos turquesas que cautivan a cualquier visitante.</p>
+                </div>
+                <div class="grid-item">
+                    <img src="img/08.jpg" alt="Templo del Fuego de Yazd">
+                    <h3>Templo del Fuego de Yazd</h3>
+                    <p>Hogar del fuego sagrado zoroastriano que ha permanecido encendido por más de 1500 años.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Con amor y orgullo por la ciudad de Yazd 🧡</p>
+        <p>&copy; 2025 Guía de mi ciudad</p>
+    </footer>
+
+    <button id="scrollTopBtn" title="¡Subir!">⬆️</button>
+
+    <script>
+        // Para convertir colores hexadecimales a RGB para usar en gradientes
+        function hexToRgb(hex) {
+            const r = parseInt(hex.substring(1, 3), 16);
+            const g = parseInt(hex.substring(3, 5), 16);
+            const b = parseInt(hex.substring(5, 7), 16);
+            return `${r}, ${g}, ${b}`;
+        }
+
+        // ----- Desplazamiento suave para el botón "Saber más" -----
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+
+            if (targetSection) {
+                window.scrollTo({
+                    top: targetSection.offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+
+        // ----- Entrada de cajas simultánea con el desplazamiento (Efecto Parallax) -----
+
+        // حالا فقط آیتم های grid-item انتخاب می شوند.
+        const scrollAnimatedElements = document.querySelectorAll('.grid-item'); 
+
+        function animateOnScroll() {
+            scrollAnimatedElements.forEach(item => {
+                const itemRect = item.getBoundingClientRect();
+                const itemTop = itemRect.top;
+                const itemHeight = itemRect.height;
+                const windowHeight = window.innerHeight;
+
+                // نقطه شروع: وقتی پایین آیتم به 80% پایین صفحه رسید (زودتر شروع بشه)
+                const startPoint = windowHeight * 0.8; 
+                // نقطه پایان: وقتی بالای آیتم به 50% بالای صفحه رسید (اواسط صفحه کامل بشه)
+                const endPoint = windowHeight * 0.5; 
+
+                if (itemTop < startPoint && itemTop > -itemHeight) { // آیتم در محدوده قابل مشاهده
+                    let progress = 0;
+                    if (startPoint !== endPoint) { 
+                        progress = 1 - ((itemTop - endPoint) / (startPoint - endPoint));
+                    }
+                    progress = Math.max(0, Math.min(1, progress)); // مطمئن میشیم بین 0 و 1 هست
+
+                    // مقدار transform رو از 80px به 0px و opacity رو از 0 به 1 متناسب با progress تنظیم می‌کنیم
+                    const translateYValue = 80 * (1 - progress); 
+                    const opacityValue = progress; 
+
+                    item.style.transform = `translateY(${translateYValue}px)`;
+                    item.style.opacity = opacityValue;
+
+                } else if (itemTop >= startPoint) { // آیتم هنوز پایین صفحه است
+                    item.style.transform = 'translateY(80px)';
+                    item.style.opacity = 0;
+                    item.style.transition = 'transform 0.1s linear, opacity 0.1s linear';
+                } else { // آیتم از بالای صفحه خارج شده (یا کاملاً در بالای صفحه دیده شده)
+                    item.style.opacity = 1; 
+                    item.style.transform = 'translateY(0)';
+                    item.style.transition = 'transform 0.1s linear, opacity 0.1s linear';
+                }
+            });
+        }
+
+        // افزودن ایونت لیسنر به اسکرول
+        window.addEventListener('scroll', animateOnScroll);
+        // برای زمانی که صفحه برای اولین بار لود میشه و ممکنه آیتم ها از قبل تو دید باشن
+        animateOnScroll();
+
+        // دکمه اسکرول به بالا
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+                scrollTopBtn.style.display = "block";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        };
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
